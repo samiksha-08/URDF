@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<robot name="sphere_with_grippers">
+
+    <link name="base_link">
+        <!-- Add visual, geometry, and material elements for the base link if needed -->
+    </link>
+
+    <link name="sphere_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.1"/>
+            </geometry>
+            <material name="red"/>
+        </visual>
+    </link>
+
+    <!-- Fixed joint to attach the sphere to the base link -->
+    <joint name="attach_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="sphere_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- First gripper link -->
+    <link name="gripper_link_1">
+        <visual>
+            <origin xyz="0.1 0 0" rpy="0 0 0"/>
+            <!-- Add visual, geometry, and material elements for the first gripper link -->
+            <!-- For example, you can use a box, cylinder, or mesh to represent the gripper -->
+            <geometry>
+                <box size="0.1 0.02 0.05"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+    </link>
+
+    <!-- Fixed joint to attach the first gripper to the sphere -->
+    <joint name="attach_gripper_joint_1" type="fixed">
+        <parent link="sphere_link"/>
+        <child link="gripper_link_1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Revolute joint for circular rotation of the first gripper -->
+    <joint name="circular_rotation_joint_1" type="revolute">
+        <parent link="gripper_link_1"/>
+        <child link="circular_link_1"/>
+        <origin xyz="0.1 0 0" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-1.57" upper="1.57" effort="100" velocity="0.1"/>
+    </joint>
+
+    <!-- Second gripper link -->
+    <link name="gripper_link_2">
+        <visual>
+            <origin xyz="0.1 0.05 0" rpy="0 0 0"/>
+            <!-- Add visual, geometry, and material elements for the second gripper link -->
+            <!-- For example, you can use a box, cylinder, or mesh to represent the gripper -->
+            <geometry>
+                <box size="0.1 0.02 0.05"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <!-- Fixed joint to attach the second gripper to the sphere -->
+    <joint name="attach_gripper_joint_2" type="fixed">
+        <parent link="sphere_link"/>
+        <child link="gripper_link_2"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Revolute joint for circular rotation of the second gripper -->
+    <joint name="circular_rotation_joint_2" type="revolute">
+        <parent link="gripper_link_2"/>
+        <child link="circular_link_2"/>
+        <origin xyz="0.1 0.05 0" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-1.57" upper="1.57" effort="100" velocity="0.1"/>
+    </joint>
+
+    
+</robot>

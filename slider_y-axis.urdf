@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<robot name="up_down_bar">
+
+    <link name="base_link">
+        <!-- Add visual, geometry, and material elements for the base link if needed -->
+    </link>
+
+    <link name="bar_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.1 1.0"/>
+            </geometry>
+            <material name="red"/>
+        </visual>
+    </link>
+
+    <joint name="bar_joint" type="prismatic">
+        <parent link="base_link"/>
+        <child link="bar_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-1" upper="1" effort="10" velocity="0.1"/>
+    </joint>
+
+</robot>
