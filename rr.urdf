@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<robot name="scara_robot">
+    <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+    </material>
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+    <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+    </material>
+    <material name="grey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+    </material>
+
+
+
+    <link name="world"/>
+
+
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="1.0 1.0 0.1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <joint name="base_joint" type="prismatic">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1" upper="1" effort="100" velocity="0.1"/>
+    </joint>
+
+
+    <link name="box1">
+        <visual>
+            <origin xyz="0.2 0.0 0.1" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.2 0.2 0.2"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+    <joint name="box1_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="box1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 1 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="100" velocity="0.1"/>
+    </joint>
+
+
+    <link name="cyy_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.2" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="0.2" radius="0.1"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+    <joint name="cyy_joint" type="revolute">
+        <parent link="box1"/>
+        <child link="cyy_link"/>
+        <axis xyz="1 1 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="100" velocity="0.1"/>
+    </joint>
+
+
+
+    <link name="cy_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.8" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="0.9" radius="0.1"/>
+            </geometry>
+            <material name="gray"/>
+        </visual>
+    </link>
+    <joint name="cy_joint" type="fixed">
+        <parent link="cyy_link"/>
+        <child link="cy_link"/>
+	<axis xyz="0.0 0.0 1.0"/>
+        <limit lower="0" upper="6.283" effort="1000.0" velocity="1000.0"/>
+    </joint>
+
+
+    <link name="box2">
+        <visual>
+            <origin xyz="0.0 0.0 1.2" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.2 0.2 0.2"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <joint name="box2_joint" type="revolute">
+        <parent link="cy_link"/>
+        <child link="box2"/>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
+        <axis xyz="1 1 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="100" velocity="0.1"/>
+    </joint>
+
+    <link name="cy2_link">
+        <visual>
+            <origin xyz="0.2 0.0 1.7" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="1.1" radius="0.1"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+    <joint name="cy2_joint" type="fixed">
+        <parent link="box2"/>
+        <child link="cy2_link"/>
+	<axis xyz="0.0 0.0 1.0"/>
+        <limit lower="0" upper="6.283" effort="1000.0" velocity="1000.0"/>
+    </joint>
+
+    <link name="box3">
+        <visual>
+            <origin xyz="0.0 0.0 2.2" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.2 0.2 0.2"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+    <joint name="box3_joint" type="fixed">
+        <parent link="cy2_link"/>
+        <child link="box3"/>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
+        <axis xyz="1 1 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="100" velocity="0.1"/>
+    </joint>
+
+    <link name="box4">
+        <visual>
+            <origin xyz="0.0 -0.4 2.2" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.2 0.4 0.2"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <joint name="box4_joint" type="fixed">
+        <parent link="box3"/>
+        <child link="box4"/>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
+        <axis xyz="1 1 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="100" velocity="0.1"/>
+    </joint>
+
+
+</robot>

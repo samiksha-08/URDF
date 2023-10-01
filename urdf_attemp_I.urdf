@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<robot name="scara_robot">
+    <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+    </material>
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+    <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+    </material>
+
+
+
+    <link name="world"/>
+
+
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0.0 0.0 1.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="1.0 2.0 0.1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <joint name="base_joint" type="prismatic">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1" upper="1" effort="100" velocity="0.1"/>
+    </joint>
+
+   
+
+
+
+    <link name="cy_link">
+        <visual>
+            <origin xyz="0.0 0.0 1.5" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="1.1" radius="0.1"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+    <joint name="cy_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="cy_link"/>
+	<axis xyz="0.0 0.0 1.0"/>
+        <limit lower="0" upper="6.283" effort="1000.0" velocity="1000.0"/>
+    </joint>
+
+    <link name="arm1">
+        <visual>
+            <origin xyz="0.0 -0.5 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.1 1.0 0.1"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+    <joint name="arm1_joint" type="prismatic">
+        <origin xyz="0.0 0.0 2.0" rpy="0.0 0.0 0.0"/>
+        <parent link="cy_link"/>
+        <child link="arm1"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-1.0" upper="0.1" effort="1000.0" velocity="1000.0"/>
+    </joint>
+
+    <link name="arm2">
+        <visual>
+            <origin xyz="0.0 -0.5 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.1 1.0 0.1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <joint name="arm2_joint" type="revolute">
+        <origin xyz="0.0 -1.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="arm1"/>
+        <child link="arm2"/>
+        <axis xyz="0.0 0.0 1.0"/>
+        <limit lower="-1.0" upper="1.0" effort="1000.0" velocity="1000.0"/>
+    </joint>
+
+    <link name="sphere_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.08"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <joint name="attach_joint" type="fixed">
+        <parent link="arm2"/>
+        <child link="sphere_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="ee_link">
+        <visual>
+            <origin xyz="0 -1 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.1"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <joint name="attach_joint" type="fixed">
+        <parent link="arm2"/>
+        <child link="ee_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="gripper_link_1">
+        <visual>
+            <origin xyz="-0.1 -1 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.02 0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint name="attach_gripper_joint_1" type="fixed">
+        <parent link="ee_link"/>
+        <child link="gripper_link_1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="gripper_link_2">
+        <visual>
+            <origin xyz="-0.1 -1.05 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.02 0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <!-- Fixed joint to attach the second gripper to the sphere -->
+    <joint name="attach_gripper_joint_2" type="fixed">
+        <parent link="ee_link"/>
+        <child link="gripper_link_2"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+  
+   
+
+   
+
+
+
+
+</robot>
