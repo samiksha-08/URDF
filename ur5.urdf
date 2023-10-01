@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<robot name="ur5">
+
+  <!-- Base Link -->
+  <link name="base_link"/>
+
+  <!-- Shoulder Link -->
+  <link name="shoulder_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.2"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Upper Arm Link -->
+  <link name="upper_arm_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.6"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Forearm Link -->
+  <link name="forearm_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.4"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Wrist 1 Link -->
+  <link name="wrist_1_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.2"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Wrist 2 Link -->
+  <link name="wrist_2_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.2"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Wrist 3 Link -->
+  <link name="wrist_3_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.2"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- End Effector Link -->
+  <link name="end_effector_link">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Joints -->
+  <joint name="shoulder_pan_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="shoulder_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
+  </joint>
+
+  <!-- Add more joint elements for other joints in the arm -->
+  
+</robot>
